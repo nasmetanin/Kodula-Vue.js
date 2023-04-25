@@ -155,7 +155,7 @@ export default {
             if (this.$i18n.locale == 'et') {
                 return this.property.content.body
             } else {
-                if (this.property.contenteng === "") {
+                if (this.property.contenteng.body == "") {
                     return this.property.content.body
                 }
                 return this.property.contenteng.body
