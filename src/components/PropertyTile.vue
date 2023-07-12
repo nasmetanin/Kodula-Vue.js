@@ -1,8 +1,24 @@
 <template>
     <div @click="toProperty"
      class="property-tile">
-        <div :style="{ backgroundImage: 'url(' + property.photo + ')' }"
+        <div v-if="false"
+         :style="{ backgroundImage: 'url(' + property.photo + ')' }"
          class="property-tile-img"></div>
+        <div class="property-tile-img">
+            <picture class="property-tile-img-inner">
+                <transition name="side">
+                    <img v-show="isLoadedImg"
+                     class="property-photo"
+                     @load="imageLoadHandler()"
+                     :src="property.photo"
+                     alt="preview">
+                </transition>
+                <LoaderView v-if="!isLoadedImg"
+                 color="var(--theme)"
+                 class="tile-loader" />
+            </picture>
+
+        </div>
         <div class="property-tile-info">
             <div class="tile-info-line">
                 <h5>{{ etPropType(property.types_of_objects) }}</h5>
@@ -28,6 +44,8 @@
     </div>
 </template>
 <script>
+import LoaderView from './LoaderView.vue';
+
 export default {
     name: 'PropertyTile',
     props: {
@@ -36,9 +54,12 @@ export default {
             required: true
         }
     },
+    components: {
+        LoaderView
+    },
     data() {
         return {
-
+            isLoadedImg: false,
         }
     },
     methods: {
@@ -49,6 +70,9 @@ export default {
                     id: this.property.id
                 }
             })
+        },
+        imageLoadHandler() {
+            this.isLoadedImg = true;
         },
         etPropType(type) {
             if (this.$i18n.locale === 'et') {
@@ -79,10 +103,30 @@ export default {
 <style>
 .property-tile-img {
     height: 66%;
-    background-size: cover;
-    background-position: center;
     border-top-left-radius: var(--br);
     border-top-right-radius: var(--br);
+    position: relative;
+}
+
+.property-tile-img-inner {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.property-photo {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: var(--br);
+    border-top-right-radius: var(--br);
+}
+
+.tile-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .small-text {

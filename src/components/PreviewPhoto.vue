@@ -90,9 +90,7 @@ export default {
             document.documentElement.style.setProperty('--vh', `${vh}px`);
         },
         imageLoadHandler() {
-            setTimeout(() => {
-                this.isLoadedImg = true;
-            }, 200)
+            this.isLoadedImg = true;
         },
         started(e) {
             const container = this.$refs.container;
@@ -197,6 +195,13 @@ export default {
 }
 </script>
 <style >
+.preview-wrap .dot-wave-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .preview-wrap {
     position: fixed;
     top: 0;
