@@ -43,7 +43,7 @@
             </div>
             <Transition name="side"
                     mode="out-in">
-                <ModalWindow @close="closeModal" v-if="modal" />
+                <ModalWindow @close="closeModal" v-if="modal" :property="property.address" />
             </Transition>
             <div class="property-data">
                 <div class="properties">

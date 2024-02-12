@@ -7,6 +7,9 @@
                  class="modal-inner">
                     <h3>{{ $t('modal.h') }}</h3>
                     <p class="modal-description">{{ $t('modal.p') }}</p>
+                    <p class="modal-description">
+                        {{ property }}
+                    </p>
                     <form class="form">
                         <input ref="input"
                          required
@@ -58,6 +61,12 @@ export default {
         MainButton
     },
     inject: ['baseURL'],
+    props: {
+        property: {
+            type: String,
+            required: false
+        }
+    },
     data() {
         return {
             closeIcon,
@@ -103,6 +112,7 @@ export default {
                     name: this.name,
                     email: this.email,
                     phone: this.phone,
+                    property: this.property
                 })
             })
                 .then(res => res.json())
@@ -172,6 +182,10 @@ export default {
 .modal-description {
     font-size: 15px;
     font-weight: 500;
+}
+
+.modal-description:empty {
+    display: none;
 }
 
 .form {
