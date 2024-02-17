@@ -4,7 +4,7 @@
             <div v-if="index > 0"
              class="prw-slider-btn grid-first">
                 <button @click="
-                    backward($event)"
+                                    backward($event)"
                  class="reset-styles">
                     <img class="back-btn"
                      :src="arrow"
@@ -153,7 +153,7 @@ export default {
         forward() {
             if (this.index < this.photos.length - 1) {
                 this.isLoadedImg = false;
-                // if width is less 600px, reverse the index
+                // if width is less 600px, none the index
                 this.index += 1;
                 this.lastXHorizontal = null;
                 this.fingerLocationX = null;

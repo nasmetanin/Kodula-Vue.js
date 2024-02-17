@@ -59,7 +59,7 @@
                 Designed and developed by
             </h4>
             <a class="made-by-link"
-             href="mailto:smet.n@hotmail.com">Nikita Smetanin</a>
+             href="https://nsweb.tech">Nikita Smetanin</a>
         </div>
     </footer>
 </template>

@@ -55,7 +55,7 @@ export default {
                     trigger: trigger,
                     start: 'top 70%',
                     end: 'bottom 70%',
-                    toggleActions: 'play none none reverse',
+                    toggleActions: 'play none none none',
                     markers: false,
                 }
             })

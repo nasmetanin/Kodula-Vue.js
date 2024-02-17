@@ -10,7 +10,6 @@
 <script>
 import HomeIntro from '@/components/HomeIntro'
 import HomeProperties from '@/components/HomeProperties'
-
 import ServicesHome from '@/components/ServicesHome'
 
 export default {

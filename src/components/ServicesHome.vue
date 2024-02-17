@@ -92,7 +92,7 @@ export default {
                     trigger: start,
                     start: 'top 90%',
                     end: 'bottom 90%',
-                    toggleActions: 'play none none reverse',
+                    toggleActions: 'play none none none',
                     markers: false,
                 },
             })
