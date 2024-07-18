@@ -3,18 +3,11 @@
          class="menu">
          <nav class="menu-list">
              <ul class="menu-list-wrap">
-                 <li class="menu-item" v-for="link in links" :key="link.id" ref="listItem"  @mouseover="changePic(link.id)" @mouseleave="resetbackground()">
+                 <li class="menu-item" v-for="link in links" :key="link.id" ref="listItem">
                      <router-link @click="openMenu" :to="link.link">{{ link.name }}</router-link>
                  </li>
              </ul>
          </nav>
-        <div class="menu-pictures" >
-
-        </div>
-        <div ref="background" class="background-pattern"></div>
-        <transition name="burn" mode="out-in">
-            <div v-if="showPics"  ref="picture" :key="currentPic" :style="{ backgroundImage: 'url(' + currentPic + ')' }" alt="pic1" class="background-menu-image"></div>
-        </transition>
 
         <button @click="openMenu" class="close-menu">
             <img class="cross-icon" :src="cross" alt="close">
@@ -88,12 +81,11 @@ export default {
             const menu = this.$refs.menu
             const listItem = this.$refs.listItem
             const tl = gsap.timeline()
-            const background = this.$refs.background
 
             if (this.menuOpened) {
                 tl.to(menu, {
                     duration: 0.5,
-                    width: '100%',
+                    translateX: '0%',
                     ease: 'power3',
                 })
                     .to(listItem, {
@@ -101,10 +93,6 @@ export default {
                         opacity: 1,
                         y: 0,
                         stagger: 0.1,
-                    }, '-=0.1')
-                    .to(background, {
-                        duration: 0.3,
-                        opacity: 1,
                     }, '-=0.1')
                 this.$emit('openedMenu')
                 return
@@ -115,64 +103,15 @@ export default {
                 y: 20,
                 stagger: 0.1,
             })
-                .to(background, {
-                    duration: 0.3,
-                    opacity: 0,
-                }, '-=0.1')
                 .to(menu, {
                     duration: 0.5,
-                    width: '0%',
+                    translateX: '100%',
                     ease: 'power3',
                 }, '-=0.1')
             this.showPics = false
             this.$emit('closedMenu')
 
         },
-        changePic(id) {
-            this.showPics = true
-            this.currentPic = this.pics.find(pic => pic.id === id).pic
-            this.magnifybackground(id)
-        },
-        magnifybackground(id) {
-            let background = this.$refs.background
-            var position = '0% 0%'
-
-            const tl = gsap.timeline()
-            switch (id) {
-                case 1:
-                    position = '0% -75%'
-                    break
-                case 2:
-                    position = '0% -150%'
-                    break
-                case 3:
-                    position = '0% -225%'
-                    break
-                default:
-                    position = '0% 0%'
-            }
-
-            tl.to(background, {
-                duration: 0.8,
-                opacity: 0.3,
-                backgroundPosition: position,
-                ease: 'easeOut'
-            }, 'change')
-
-        },
-        resetbackground() {
-            let background = this.$refs.background
-
-            const tl = gsap.timeline()
-
-            tl.to(background, {
-                duration: 0.8,
-                opacity: 1,
-                backgroundPosition: '0% 0%',
-                ease: 'easeOut'
-            }, 'change')
-
-        }
     },
     mounted() {
 
@@ -202,10 +141,12 @@ export default {
 }
 
 .menu {
+    transform: translateX(100%);
+    padding: 80px 40px;
     position: fixed;
     top: 0;
     right: 0;
-    width: 0%;
+    min-width: 420px;
     height: 100vh;
     background-color: var(--theme);
     -webkit-backdrop-filter: blur(20px);
@@ -214,51 +155,12 @@ export default {
     overflow-y: auto;
     z-index: 99;
     display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.background-pattern {
-    height: 100vh;
-    width: 100vw;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 25%,
-            transparent 9%);
-    background-position: 0% 0%;
-    background-size: 15vmin 15vmin;
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0;
-    z-index: 1;
-}
-
-.background-menu-image {
-    height: 100vh;
-    width: 100vw;
-    background-size: cover;
-    background-position: top center;
-    background-repeat: no-repeat;
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0.3;
-    z-index: 0;
 }
 
 .menu-list,
 .menu-pictures {
-    width: 50%;
-    height: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
     z-index: 5;
-}
-
-.menu-picture {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
 }
 
 .menu-list ul {
@@ -269,7 +171,7 @@ export default {
 }
 
 .menu-list ul li {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 800;
     opacity: 0;
     transform: translateY(20px);
@@ -299,10 +201,8 @@ export default {
 
 @media (max-width: 800px) {
     .close-menu {
-
         top: 15px;
         right: 0px;
-
     }
 
     .cross-icon {
@@ -314,13 +214,18 @@ export default {
         width: 100%;
     }
 
-    .menu-list ul {
-        align-items: center;
-        justify-content: center;
+}
+
+@media (max-width: 420px) {
+    .menu {
+        min-width: 100%;
+        padding-inline: 20px;
     }
 
+    .menu-list,
     .menu-pictures {
-        display: none;
+        justify-content: flex-start;
     }
+
 }
 </style>
