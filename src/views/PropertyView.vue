@@ -1,96 +1,134 @@
-<template lang="">
+<template>
     <transition name="side"
      mode="out-in">
         <LoaderView v-if="!loaded" />
-        <div v-else class="property-view">
-            <transition name="side"
-                mode="out-in">
+        <div v-else
+         class="property-view">
+            <section class="property-intro-wrap">
+                <div @click="sliderHandler"
+                 :style="{ background: 'linear-gradient(rgba(245, 246, 252, 0) 64.71%, rgba(97, 102, 102, 0.16) 86.55%, rgba(0, 0, 0, 0.33)), url(' + property.mainphoto + ')' }"
+                 class="property-intro">
 
-                <section class="property-intro-wrap">
-                    <div @click="sliderHandler" :style="{ background: 'linear-gradient(rgba(245, 246, 252, 0) 64.71%, rgba(97, 102, 102, 0.16) 86.55%, rgba(0, 0, 0, 0.33)), url(' + property.mainphoto + ')' }" class="property-intro">
-
-                        <h1 class="property-title">{{ property.title }}</h1>
-                        <div class="property-intro-info">
-                            <img :src="eye" class="property-icon" alt="eye"> <span>{{ property.views}}</span> ● <span>{{ property.updated_at}}</span>
-                        </div>
-                        <div v-if="this.property.photos" class="underline-btn">
-                            <img :src="photo" class="property-icon" alt="photos"> {{ this.property.photos.length }}
-                        </div>
-
+                    <h1 class="property-title">{{ property.title }}</h1>
+                    <div class="property-intro-info">
+                        <img :src="eye"
+                         class="property-icon"
+                         alt="eye"> <span>{{ property.views }}</span> ● <span>{{ property.updated_at }}</span>
+                    </div>
+                    <div v-if="this.property.photos"
+                     class="underline-btn">
+                        <img :src="photo"
+                         class="property-icon"
+                         alt="photos"> {{ this.property.photos.length }}
                     </div>
 
-                    <button @click="this.$router.go(-1)" class="exit-btn-wrap">
-                        <img class="exit-btn"
-                            :src="arrow"
-                            alt="back">
-                    </button>
-                </section>
+                </div>
 
-            </transition>
+                <button @click="this.$router.go(-1)"
+                 class="exit-btn-wrap">
+                    <img class="exit-btn"
+                     :src="arrow"
+                     alt="back">
+                </button>
+            </section>
 
             <Transition name="side"
-                    mode="out-in">
+             mode="out-in">
                 <PreviewPhoto v-if="showSlider"
-                    :photos="this.property.photos"
-                    @close="this.showSlider = false" />
+                 :images="this.property.photos"
+                 @close="this.showSlider = false" />
             </Transition>
             <div class="property-manage">
                 <div>
                     <h4>{{ property.address }}</h4>
                     <h5 class="gray-text">€{{ property.price }}{{ property.rent ? "/" + $t('home.month') : "" }}</h5>
                 </div>
-                <MainButton @click="openModal" :text="$t('contact')" />
+                <MainButton @click="openModal"
+                 :text="$t('contact')" />
             </div>
             <Transition name="side"
-                    mode="out-in">
-                <ModalWindow @close="closeModal" v-if="modal" :property="property.address" />
+             mode="out-in">
+                <ModalWindow @close="closeModal"
+                 v-if="modal"
+                 :property="property.address" />
             </Transition>
             <div class="property-data">
                 <div class="properties">
-                    <div v-if="property.types_of_objects" class="properties-prop">
-                        <img class="prop-icon" :src="houseFill" alt="">
+                    <div v-if="property.types_of_objects"
+                     class="properties-prop">
+                        <img class="prop-icon"
+                         :src="houseFill"
+                         alt="">
                         {{ etPropType(property.types_of_objects) }}
                     </div>
-                    <div v-if="property.area" class="properties-prop">
-                        <img class="prop-icon" :src="area" alt="">
-                        {{ property.area}}m²
+                    <div v-if="property.area"
+                     class="properties-prop">
+                        <img class="prop-icon"
+                         :src="area"
+                         alt="">
+                        {{ property.area }}m²
                     </div>
-                    <div v-if="property.rooms" class="properties-prop">
-                        <img class="prop-icon" :src="door" alt="">
-                        {{ property.rooms}} {{ $t('home.rooms') }}
+                    <div v-if="property.rooms"
+                     class="properties-prop">
+                        <img class="prop-icon"
+                         :src="door"
+                         alt="">
+                        {{ property.rooms }} {{ $t('home.rooms') }}
                     </div>
-                    <div v-if="property.floor" class="properties-prop">
-                        <img class="prop-icon" :src="floor" alt="">
-                        {{ property.floor}} {{ $t('home.floor') }}
+                    <div v-if="property.floor"
+                     class="properties-prop">
+                        <img class="prop-icon"
+                         :src="floor"
+                         alt="">
+                        {{ property.floor }} {{ $t('home.floor') }}
                     </div>
-                    <div v-if="property.balconies" class="properties-prop">
-                        <img class="prop-icon" :src="balcony" alt="">
-                        {{ property.balconies}}
+                    <div v-if="property.balconies"
+                     class="properties-prop">
+                        <img class="prop-icon"
+                         :src="balcony"
+                         alt="">
+                        {{ property.balconies }}
                     </div>
-                    <div v-if="property.utilities" class="properties-prop">
-                        <img class="prop-icon" :src="utilities" alt="">
-                        {{ property.utilities}}
+                    <div v-if="property.utilities"
+                     class="properties-prop">
+                        <img class="prop-icon"
+                         :src="utilities"
+                         alt="">
+                        {{ property.utilities }}
                     </div>
-                    <div v-if="property.building_type" class="properties-prop">
-                        <img class="prop-icon" :src="materials" alt="">
-                        {{ property.building_type}}
+                    <div v-if="property.building_type"
+                     class="properties-prop">
+                        <img class="prop-icon"
+                         :src="materials"
+                         alt="">
+                        {{ property.building_type }}
                     </div>
-                    <div v-if="property.parking" class="properties-prop">
-                        <img class="prop-icon" :src="parking" alt="">
+                    <div v-if="property.parking"
+                     class="properties-prop">
+                        <img class="prop-icon"
+                         :src="parking"
+                         alt="">
                         {{ $t('home.yes') }}
                     </div>
-                    <div v-if="property.elevator" class="properties-prop">
-                        <img class="prop-icon" :src="elevator" alt="">
+                    <div v-if="property.elevator"
+                     class="properties-prop">
+                        <img class="prop-icon"
+                         :src="elevator"
+                         alt="">
                         {{ $t('home.yes') }}
                     </div>
-                    <div v-if="property.condition" class="properties-prop">
-                        <img class="prop-icon" :src="condition" alt="">
-                        {{ property.condition}}
+                    <div v-if="property.condition"
+                     class="properties-prop">
+                        <img class="prop-icon"
+                         :src="condition"
+                         alt="">
+                        {{ property.condition }}
                     </div>
 
                 </div>
                 <div class="property-description">
-                    <div class="property-description-text" v-html="contentData()"></div>
+                    <div class="property-description-text"
+                     v-html="contentData()"></div>
                 </div>
             </div>
         </div>
