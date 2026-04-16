@@ -82,7 +82,7 @@
             </div>
             <div v-else>
                 <div class="main">
-                    <img :src="notFound"
+                    <img v-lazy="notFound"
                      alt="Registered">
                     <h2>{{ $t('search.nothingHere') }}</h2>
                     <p>

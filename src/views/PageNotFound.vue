@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <img :src="notFound"
+        <img v-lazy="notFound"
          alt="Registered">
         <h2>404</h2>
         <h3>Page not found</h3>

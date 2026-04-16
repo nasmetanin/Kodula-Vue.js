@@ -10,7 +10,7 @@
                     <img v-show="isLoadedImg"
                      class="property-photo"
                      @load="imageLoadHandler()"
-                     :src="property.photo"
+                     v-lazy="property.photo"
                      alt="preview">
                 </transition>
                 <LoaderView v-if="!isLoadedImg"

@@ -8,7 +8,7 @@
 
     <div class="owner-profile">
       <img class="person-photo"
-       :src="margit"
+       v-lazy="margit"
        alt="Margit Rajaste">
       <h3>Margit Rajaste</h3>
       <p class="owner-info-text">Kodula CEO</p>

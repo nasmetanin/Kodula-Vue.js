@@ -10,7 +10,7 @@
         <div @click="$router.push('properties')"
          ref="lookAll"
          class="look-more">
-            <img :src="house"
+            <img v-lazy="house"
              alt="look more image">
             <h4>{{ $t('home.lookmore') }}</h4>
         </div>

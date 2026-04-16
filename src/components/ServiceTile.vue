@@ -1,7 +1,7 @@
 <template lang="">
     <div ref="tile"  class="service-tile">
         <div class="service-tile-info">
-            <img class="service-icon" :src="service.icon" alt="Brokerage">
+            <img class="service-icon" v-lazy="service.icon" alt="Brokerage">
             <h3 class="service-tile-title">{{ service.title }}</h3>
             <p class='service-tile-text'>{{ service.text }}</p>
         </div>

@@ -1,7 +1,7 @@
 <template>
     <header ref="header">
         <router-link to="/">
-            <img :src="logoBlack"
+            <img v-lazy="logoBlack"
              alt="logo"
              class="logo">
         </router-link>
