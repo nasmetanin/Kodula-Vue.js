@@ -1,8 +1,11 @@
 <template>
     <section class="intro">
         <div ref="picCard"
-         class="intro-inner-wrap"
-         :style="{ backgroundImage: 'url(' + intro + ')' }">
+         class="intro-inner-wrap">
+            <img :src="intro"
+             alt="Intro Image"
+             class="intro-img"
+             fetchpriority="high" />
             <div class="intro-inner">
                 <h1 class="intro-text"
                  ref="text">
@@ -18,7 +21,7 @@
     </section>
 </template>
 <script>
-import intro from '@/assets/img/intro.jpg'
+import intro from '@/assets/img/intro.webp'
 import logoWhite from '@/assets/img/logo_white.png'
 import IntroSearch from './IntroSearch.vue'
 
@@ -78,7 +81,6 @@ export default {
     display: block;
     margin: 0 auto;
     gap: 15px;
-
 }
 
 .intro-search {
@@ -105,11 +107,20 @@ export default {
     text-shadow: 0 0 35px rgba(0, 0, 0, 0.83);
 }
 
+.intro-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    border-radius: 35px;
+}
+
 .intro-inner-wrap {
     border-radius: 35px;
-    background-size: cover;
-    background-position: top;
-    background-repeat: no-repeat;
+    position: relative;
     width: 100%;
     height: 100%;
     display: flex;
